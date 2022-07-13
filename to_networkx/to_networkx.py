@@ -13,7 +13,12 @@ from edge_list import *
 
 
 if __name__ == "__main__":
-    hello = edge_list("bolt://localhost:7687", "1234")
-    G = hello.dgl_graph_from_cypher(hello.get_edge_list())
+    uri = "bolt://localhost:7687"
+    password = "heart"
+
+    hello = edge_list(uri, password)
+    edge_list = hello.get_edge_list()
+
+    G = hello.nx_graph_from_cypher(edge_list)
     print('   %d nodes.'% G.number_of_nodes())
     print('   %d edges.'% G.number_of_edges())

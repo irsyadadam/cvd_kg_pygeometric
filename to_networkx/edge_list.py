@@ -13,7 +13,7 @@ from tqdm import tqdm
 class edge_list():
     """Class to gather the edge list and create dgl graph"""
     def __init__(self, uri: str, password: str) -> None:
-        self.driver = GraphDatabase.driver(uri, auth=("neo4j", "1234"))
+        self.driver = GraphDatabase.driver(uri, auth=("neo4j", password))
 
     def close(self) -> None:
         self.driver.close()
@@ -32,7 +32,7 @@ class edge_list():
         result = self.driver.session().write_transaction(self.edge_list)
         return pd.DataFrame(result)
 
-    def dgl_graph_from_cypher(self, data: pd.DataFrame):
+    def nx_graph_from_cypher(self, data: pd.DataFrame):
         """
         Takes the whole graph and creates dgl graph
         ARGS:
@@ -43,16 +43,10 @@ class edge_list():
         edge_list = []
         u = data["u"].to_numpy()
         v = data["v"].to_numpy()
-        print(len(u))
+        
         for i, j in tqdm(zip(u, v), desc = "iterating"):
             edge_list.append(str(i) + " " + str(j))
-        print("edge list type: ")
-        print(type(edge_list[0]))
-        print("===============")
-        print("edge_list[0]: " + edge_list[0])
-        print("edge_list[1]: " + edge_list[1])
-        # return nx.DiGraph(edge_list) 
-        print("===============================")
+
         # print(edge_list)
         return nx.parse_edgelist(edge_list, nodetype=str)
 
