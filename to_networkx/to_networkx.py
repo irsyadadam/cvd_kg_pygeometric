@@ -7,12 +7,14 @@ import numpy as np
 import networkx as nx
 import os
 from tqdm import tqdm
+import sys
 
 
 from edge_list import *
 
 
 if __name__ == "__main__":
+    print(sys.version_info)
     uri = "bolt://localhost:7687"
     password = "heart"
 

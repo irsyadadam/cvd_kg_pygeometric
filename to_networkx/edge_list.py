@@ -43,8 +43,8 @@ class edge_list():
         edge_list = []
         u = data["u"].to_numpy()
         v = data["v"].to_numpy()
-        
-        for i, j in tqdm(zip(u, v), desc = "iterating"):
+
+        for i, j in zip(u, v):
             edge_list.append(str(i) + " " + str(j))
 
         # print(edge_list)
